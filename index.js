@@ -39,21 +39,26 @@ app.post('/register/', async (req, res) => {
         password: req.body.password,
     });
     await user.save()
-    res.redirect('/login/{"email":"' + req.body.email+ '", "password":"'+req.body.password+'"}');
+    res.redirect('/login/{"email":"' + req.body.email + '", "password":"' + req.body.password + '"}');
 });
 
 app.get('/login/:email', async (req, res) => {
-    console.log(req.params.email)
-    var email = JSON.parse(req.params.email);
-    console.log(email)
-    var user;
-    try{
-        user = await userSchema.find(email)
+    try {
+        console.log(req.params.email)
+        var email = JSON.parse(req.params.email);
+        console.log(email)
+        var user;
+        try {
+            user = await userSchema.find(email)
+        } catch (err) {
+            console.log(err)
+        }
+        console.log(user)
+        res.send(user);
     } catch (err) {
         console.log(err)
+        res.send(err.toJSON())
     }
-    console.log(user)
-    res.send(user);
 });
 
 
