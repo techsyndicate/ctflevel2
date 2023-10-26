@@ -57,7 +57,7 @@ app.get('/login/:email', async (req, res) => {
         res.send(user);
     } catch (err) {
         console.log(err)
-        res.send(err.toJSON())
+        res.send(err)
     }
 });
 
